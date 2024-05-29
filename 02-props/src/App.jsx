@@ -1,5 +1,7 @@
+import { useState } from "react";
+
 import componentImg from "./assets/components.png";
-import { CORE_CONCEPTS } from "./data.js";
+import { CORE_CONCEPTS, EXAMPLES } from "./data.js";
 import Header from "./components/Header.jsx";
 import {
   default as CoreConcept,
@@ -8,15 +10,17 @@ import {
 import TabButton from "./components/TabButton.jsx";
 
 export default function App() {
+  const [selectedTopic, setSelectedTopic] = useState("components");
+
   function handleSelect(tab) {
     if (tab == 1) {
-      console.log("Components");
+      setSelectedTopic("components");
     } else if (tab == 2) {
-      console.log("JSX");
+      setSelectedTopic("jsx");
     } else if (tab == 3) {
-      console.log("Props");
+      setSelectedTopic("props");
     } else {
-      console.log("State");
+      setSelectedTopic("state");
     }
   }
   return (
@@ -44,6 +48,7 @@ export default function App() {
             </Fundamental>
           </ul>
         </section>
+
         <section id="examples">
           <h2>Examples</h2>
           <menu>
@@ -52,6 +57,13 @@ export default function App() {
             <TabButton onSelect={() => handleSelect(3)}>Props</TabButton>
             <TabButton onSelect={() => handleSelect(4)}>State</TabButton>
           </menu>
+          <div id="tab-content">
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>{EXAMPLES[selectedTopic].code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
