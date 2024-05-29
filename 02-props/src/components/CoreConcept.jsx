@@ -1,7 +1,7 @@
 import "./CoreConcept.css";
 
 /*
-function CoreConcept(props) {
+export default function CoreConcept(props) {
   return (
     <li>
       <img src={props.image} alt="atom image" />
@@ -20,4 +20,8 @@ export default function CoreConcept({ image, title, description }) {
       <p>{description}</p>
     </li>
   );
+}
+
+export function Fundamental(props) {
+  return <li>{props.children}</li>;
 }

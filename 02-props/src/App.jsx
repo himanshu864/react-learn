@@ -1,9 +1,13 @@
 import componentImg from "./assets/components.png";
 import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header.jsx";
-import CoreConcept from "./components/CoreConcept.jsx";
+import {
+  default as CoreConcept,
+  Fundamental,
+} from "./components/CoreConcept.jsx";
+import TabButton from "./components/TabButton.jsx";
 
-function App() {
+export default function App() {
   return (
     <div>
       <Header />
@@ -22,12 +26,23 @@ function App() {
               image={CORE_CONCEPTS[1].image}
             />
             <CoreConcept {...CORE_CONCEPTS[2]} />
-            <CoreConcept {...CORE_CONCEPTS[3]} />
+            <Fundamental>
+              <img src={CORE_CONCEPTS[3].image} alt="Cool image" />
+              <h3>{CORE_CONCEPTS[3].title}</h3>
+              <p>{CORE_CONCEPTS[3].description}</p>
+            </Fundamental>
           </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton>Component</TabButton>
+            <TabButton>JSX</TabButton>
+            <TabButton>Props</TabButton>
+            <TabButton>State</TabButton>
+          </menu>
         </section>
       </main>
     </div>
   );
 }
-
-export default App;
