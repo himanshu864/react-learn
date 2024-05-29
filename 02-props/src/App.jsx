@@ -1,41 +1,7 @@
-import atom from "./assets/react-core-concepts.png";
 import componentImg from "./assets/components.png";
 import { CORE_CONCEPTS } from "./data.js";
-
-function Header() {
-  return (
-    <header>
-      <img src={atom} alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        Fundamental React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
-
-/*
-function CoreConcept(props) {
-  return (
-    <li>
-      <img src={props.image} alt="atom image" />
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
-    </li>
-  );
-}
-*/
-
-function CoreConcept({ image, title, description }) {
-  return (
-    <li>
-      <img src={image} alt="atom image" />
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </li>
-  );
-}
+import Header from "./components/Header.jsx";
+import CoreConcept from "./components/CoreConcept.jsx";
 
 function App() {
   return (
