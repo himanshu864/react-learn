@@ -1,8 +1,7 @@
 import { useState } from "react";
-import componentImg from "./assets/components.png";
 import { CORE_CONCEPTS, EXAMPLES } from "./data.js";
 import Header from "./components/Header.jsx";
-import { CoreConcept, Fundamental } from "./components/CoreConcept.jsx";
+import CoreConcept from "./components/CoreConcept.jsx";
 import TabButton from "./components/TabButton.jsx";
 
 export default function App() {
@@ -40,22 +39,17 @@ export default function App() {
         <section id="core-concepts">
           <h2>Time to get started!</h2>
           <ul>
-            <CoreConcept
-              title="My baby"
-              description="The girl in the world"
-              image={componentImg}
-            />
-            <CoreConcept
-              title={CORE_CONCEPTS[1].title}
-              description={CORE_CONCEPTS[1].description}
-              image={CORE_CONCEPTS[1].image}
-            />
-            <CoreConcept {...CORE_CONCEPTS[2]} />
-            <Fundamental>
-              <img src={CORE_CONCEPTS[3].image} alt="Cool image" />
-              <h3>{CORE_CONCEPTS[3].title}</h3>
-              <p>{CORE_CONCEPTS[3].description}</p>
-            </Fundamental>
+            {CORE_CONCEPTS.map((conceptItem) => (
+              <CoreConcept key={conceptItem.title} {...conceptItem} />
+            ))}
+
+            {/* {CORE_CONCEPTS.map((item, index) => (
+              <li key={index}>
+                <img src={item.image} alt="Cool image" />
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </li>
+            ))} */}
           </ul>
         </section>
 

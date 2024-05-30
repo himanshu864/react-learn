@@ -1,6 +1,6 @@
 import "./CoreConcept.css";
 
-export function CoreConcept({ image, title, description }) {
+export default function CoreConcept({ image, title, description }) {
   return (
     <li>
       <img src={image} alt="Image not found" />
@@ -8,8 +8,4 @@ export function CoreConcept({ image, title, description }) {
       <p>{description}</p>
     </li>
   );
-}
-
-export function Fundamental(props) {
-  return <li>{props.children}</li>;
 }
