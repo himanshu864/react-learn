@@ -1,28 +1,12 @@
-import { useState } from "react";
-
 import componentImg from "./assets/components.png";
-import { CORE_CONCEPTS, EXAMPLES } from "./data.js";
+import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header.jsx";
 import {
   default as CoreConcept,
   Fundamental,
 } from "./components/CoreConcept.jsx";
-import TabButton from "./components/TabButton.jsx";
 
 export default function App() {
-  const [selectedTopic, setSelectedTopic] = useState("components");
-
-  function handleSelect(tab) {
-    if (tab == 1) {
-      setSelectedTopic("components");
-    } else if (tab == 2) {
-      setSelectedTopic("jsx");
-    } else if (tab == 3) {
-      setSelectedTopic("props");
-    } else {
-      setSelectedTopic("state");
-    }
-  }
   return (
     <div>
       <Header />
@@ -44,26 +28,9 @@ export default function App() {
             <Fundamental>
               <img src={CORE_CONCEPTS[3].image} alt="Cool image" />
               <h3>{CORE_CONCEPTS[3].title}</h3>
-              <p>{CORE_CONCEPTS[3].descriphandleSelecttion}</p>
+              <p>{CORE_CONCEPTS[3].description}</p>
             </Fundamental>
           </ul>
-        </section>
-
-        <section id="examples">
-          <h2>Examples</h2>
-          <menu>
-            <TabButton onSelect={() => handleSelect(1)}>Component</TabButton>
-            <TabButton onSelect={() => handleSelect(2)}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect(3)}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect(4)}>State</TabButton>
-          </menu>
-          <div id="tab-content">
-            <h3>{EXAMPLES[selectedTopic].title}</h3>
-            <p>{EXAMPLES[selectedTopic].description}</p>
-            <pre>
-              <code>{EXAMPLES[selectedTopic].code}</code>
-            </pre>
-          </div>
         </section>
       </main>
     </div>
