@@ -1,0 +1,15 @@
+#examples {
+    margin: 3rem auto;
+}
+
+#examples h2 {
+    text-align: left;
+}
+
+#examples menu {
+    margin: 1rem 0;
+    padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+}
