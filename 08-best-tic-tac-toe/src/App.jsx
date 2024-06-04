@@ -7,16 +7,16 @@ import StartButton from "./components/StartButton.jsx";
 import GameGrid from "./components/GameGrid.jsx";
 
 let areYouSingle = true;
-let difficulty = 2;
 
 export default function App() {
   const [isPlayersVisible, setPlayerVisibility] = useState(true);
-  const [isDifficultyVisible, setDifficultyVisibility] = useState(false);
+  const [isDiffVisible, setDiffVisibility] = useState(false);
   const [isGameOver, setGameOver] = useState(false);
+  const [difficulty, setDifficulty] = useState(2);
 
   function handleSpSelect() {
     setPlayerVisibility(false);
-    setDifficultyVisibility(true);
+    setDiffVisibility(true);
     areYouSingle = true;
   }
 
@@ -26,9 +26,10 @@ export default function App() {
     areYouSingle = false;
   }
 
-  function handleDiffSelect() {
-    setDifficultyVisibility(false);
+  function handleDiffSelect(selectedDifficulty) {
+    setDiffVisibility(false);
     setGameOver(true);
+    setDifficulty(selectedDifficulty);
   }
 
   return (
@@ -41,7 +42,7 @@ export default function App() {
         <PlayerMode onSpSelect={handleSpSelect} onMpSelect={handleMpSelect} />
       )}
 
-      {isDifficultyVisible && <DifficultMode onDiffSelect={handleDiffSelect} />}
+      {isDiffVisible && <DifficultMode onDiffSelect={handleDiffSelect} />}
 
       {isGameOver && <StartButton />}
 
