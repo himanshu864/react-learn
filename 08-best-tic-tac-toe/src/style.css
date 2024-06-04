@@ -16,7 +16,7 @@ body {
     height: 100vh;
 }
 
-.everything {
+#root {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
