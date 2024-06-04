@@ -1,25 +1,7 @@
-import { useState } from "react";
-
-export default function GameBoard({ onTileSelect, activePlayerSymbol }) {
-  const [grid, setGrid] = useState([
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-  ]);
-
-  function handleTileSelect(rowIndex, colIndex) {
-    // Create deep copy when state depends on array/object
-    setGrid((grid) => {
-      let newGrid = [...grid.map((row) => [...row])];
-      newGrid[rowIndex][colIndex] = activePlayerSymbol;
-      return newGrid;
-    });
-    onTileSelect();
-  }
-
+export default function GameBoard({ onTileSelect, gameBoard }) {
   return (
     <ol id="game-board">
-      {grid.map((row, rowIndex) => {
+      {gameBoard.map((row, rowIndex) => {
         return (
           <li key={rowIndex}>
             <ol>
@@ -27,8 +9,8 @@ export default function GameBoard({ onTileSelect, activePlayerSymbol }) {
                 return (
                   <li key={colIndex}>
                     <button
-                      onClick={() => handleTileSelect(rowIndex, colIndex)}
-                      disabled={playerSymbol !== null}
+                      onClick={() => onTileSelect(rowIndex, colIndex)}
+                      disabled={playerSymbol !== null} // akin to {once: true;}
                     >
                       {playerSymbol}
                     </button>
