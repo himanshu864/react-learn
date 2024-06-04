@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol }) {
+export default function Player({ initialName, symbol, isActive }) {
   // to toggle between edit and save state (input or span)
   const [isEditing, setIsEditing] = useState(false);
   // to dynamically change playerName when input change
@@ -15,7 +15,7 @@ export default function Player({ initialName, symbol }) {
   }
 
   return (
-    <li>
+    <li className={isActive ? "active" : ""}>
       <span className="player">
         {isEditing ? (
           <input
