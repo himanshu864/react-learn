@@ -1,27 +1,10 @@
-import DifficultMode from "./DifficultMode";
-
-const player_control = document.querySelector(".control-mode");
-const difficulty_slider = document.querySelector(".diff");
-
-export default function PlayerMode() {
+export default function PlayerMode({ onSpSelect, onMpSelect }) {
   return (
     <div className="control-mode">
-      <button
-        id="sp"
-        onClick={() => {
-          player_control.classList.add("hide");
-          difficulty_slider.classList.remove("hide");
-        }}
-      >
+      <button id="sp" onClick={onSpSelect}>
         Single Player
       </button>
-      <button
-        id="mp"
-        onClick={() => {
-          player_control.classList.add("hide");
-          difficulty_slider.classList.remove("hide");
-        }}
-      >
+      <button id="mp" onClick={onMpSelect}>
         Two Players
       </button>
     </div>

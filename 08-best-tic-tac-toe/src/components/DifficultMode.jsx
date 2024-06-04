@@ -1,9 +1,15 @@
-export default function DifficultMode() {
+export default function DifficultMode({ onDiffSelect }) {
   return (
-    <div className="control-mode diff hide">
-      <button id="easy">Easy</button>
-      <button id="mid">Medium</button>
-      <button id="imp">Impossible</button>
+    <div className="control-mode diff">
+      <button id="easy" onClick={onDiffSelect}>
+        Easy
+      </button>
+      <button id="mid" onClick={onDiffSelect}>
+        Medium
+      </button>
+      <button id="imp" onClick={onDiffSelect}>
+        Impossible
+      </button>
     </div>
   );
 }
