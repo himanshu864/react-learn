@@ -9,7 +9,7 @@ function App() {
     initialInvestment: 10000,
     annualInvestment: 1200,
     expectedReturn: 6,
-    duration: 1,
+    duration: 2,
   });
 
   function handleChange(changes) {
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Header />
-      <UserInput onSelect={handleChange} />
+      <UserInput onSelect={handleChange} inputData={state} />
       <Result inputData={state} />
     </>
   );

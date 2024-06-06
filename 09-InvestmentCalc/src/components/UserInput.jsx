@@ -1,47 +1,51 @@
-export default function UserInput({ onSelect }) {
+export default function UserInput({ onSelect, inputData }) {
   return (
     <main id="user-input">
       <div className="input-group">
-        <label>
-          Initial Investment
+        <p>
+          <label>Initial Investment</label>
           <input
             type="number"
-            defaultValue={10000}
+            required
+            defaultValue={inputData.initialInvestment}
             onChange={(e) =>
               onSelect({ initialInvestment: Number(e.target.value) })
             }
           />
-        </label>
-        <label>
-          Annual Investment
+        </p>
+        <p>
+          <label>Annual Investment</label>
           <input
             type="number"
-            defaultValue={1200}
+            required
+            defaultValue={inputData.annualInvestment}
             onChange={(e) =>
               onSelect({ annualInvestment: Number(e.target.value) })
             }
           />
-        </label>
+        </p>
       </div>
       <div className="input-group">
-        <label>
-          Expected Return
+        <p>
+          <label>Expected Return</label>
           <input
             type="number"
-            defaultValue={6}
+            required
+            defaultValue={inputData.expectedReturn}
             onChange={(e) =>
               onSelect({ expectedReturn: Number(e.target.value) })
             }
           />
-        </label>
-        <label>
-          Duration
+        </p>
+        <p>
+          <label>Duration</label>
           <input
             type="number"
-            defaultValue={1}
+            required
+            defaultValue={inputData.duration}
             onChange={(e) => onSelect({ duration: Number(e.target.value) })}
           />
-        </label>
+        </p>
       </div>
     </main>
   );
