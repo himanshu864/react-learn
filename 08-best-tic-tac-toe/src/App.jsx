@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import ScoreCard from "./components/ScoreCard.jsx";
 import PlayerMode from "./components/PlayerMode.jsx";
 import DifficultMode from "./components/DifficultMode.jsx";
@@ -13,17 +12,15 @@ export default function App() {
   const [isDiffVisible, setDiffVisibility] = useState(false);
   const [isGameOver, setGameOver] = useState(false);
   const [difficulty, setDifficulty] = useState(2);
+  const [isGameOn, setGameOn] = useState(false);
+  const [GameScore, setGameScore] = useState("");
 
-  function handleSpSelect() {
+  function handleModeSelect(player) {
     setPlayerVisibility(false);
-    setDiffVisibility(true);
-    areYouSingle = true;
-  }
+    areYouSingle = player == 1;
 
-  function handleMpSelect() {
-    setPlayerVisibility(false);
-    setGameOver(true);
-    areYouSingle = false;
+    if (areYouSingle) setDiffVisibility(true);
+    else setGameOver(true);
   }
 
   function handleDiffSelect(selectedDifficulty) {
@@ -32,23 +29,44 @@ export default function App() {
     setDifficulty(selectedDifficulty);
   }
 
+  function handleGameStart() {
+    setGameOver(false);
+    setGameOn(true);
+
+    setGameScore("");
+  }
+
+  function handleGameOver(score) {
+    if (score == 1) setGameScore("You Won!");
+    else if (score == 2) setGameScore("You Lost!");
+    else setGameScore("It's a Draw!");
+
+    setGameOver(true);
+  }
+
   return (
     <>
       <h1 className="heading">TIC TAC TOE</h1>
 
+      {/* Handle Scoring System */}
       <ScoreCard />
 
-      {isPlayersVisible && (
-        <PlayerMode onSpSelect={handleSpSelect} onMpSelect={handleMpSelect} />
-      )}
+      {isPlayersVisible && <PlayerMode onModeSelect={handleModeSelect} />}
 
       {isDiffVisible && <DifficultMode onDiffSelect={handleDiffSelect} />}
 
-      {isGameOver && <StartButton />}
+      {GameScore != "" && <div className="score">{GameScore}</div>}
 
-      <GameGrid />
+      {/* Handle Grid reset, blinking, return score, logic based on lonely and hard */}
+      {isGameOn && (
+        <GameGrid
+          lonelyness={areYouSingle}
+          hardness={difficulty}
+          onGameOver={handleGameOver}
+        />
+      )}
 
-      <div className="score hide"></div>
+      {isGameOver && <StartButton onGameStart={handleGameStart} />}
     </>
   );
 }
