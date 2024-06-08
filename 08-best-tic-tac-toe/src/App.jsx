@@ -14,6 +14,7 @@ export default function App() {
   const [difficulty, setDifficulty] = useState(2);
   const [isGameOn, setGameOn] = useState(false);
   const [GameScore, setGameScore] = useState("");
+  const [resetTrigger, setResetTrigger] = useState(0);
 
   function handleModeSelect(player) {
     setPlayerVisibility(false);
@@ -34,11 +35,12 @@ export default function App() {
     setGameOn(true);
 
     setGameScore("");
+    setResetTrigger((prev) => prev + 1);
   }
 
   function handleGameOver(score) {
     if (score == 1) setGameScore("You Won!");
-    else if (score == 2) setGameScore("You Lost!");
+    else if (score == 0) setGameScore("You Lost!");
     else setGameScore("It's a Draw!");
 
     setGameOver(true);
@@ -57,11 +59,12 @@ export default function App() {
 
       {GameScore != "" && <div className="score">{GameScore}</div>}
 
-      {/* Handle Grid reset, blinking, return score, logic based on lonely and hard */}
+      {/* Logic based on lonely and hard Blinking */}
       {isGameOn && (
         <GameGrid
-          lonelyness={areYouSingle}
-          hardness={difficulty}
+          lonely={areYouSingle}
+          difficulty={difficulty}
+          trigger={resetTrigger}
           onGameOver={handleGameOver}
         />
       )}

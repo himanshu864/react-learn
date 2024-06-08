@@ -1,28 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { initialGrid, availableMoves, winCheck } from "../utils/GameUtils";
 
-export default function GameGrid({ lonelyness, hardness, onGameOver }) {
-  const [grid, setGrid] = useState([
-    [-1, -1, -1],
-    [-1, -1, -1],
-    [-1, -1, -1],
-  ]);
+let gameOver = false;
+
+export default function GameGrid({ lonely, difficulty, trigger, onGameOver }) {
+  const [grid, setGrid] = useState(initialGrid);
+
+  // reset grid whenever restart
+  useEffect(() => {
+    setGrid(initialGrid);
+    gameOver = false;
+  }, [trigger]);
 
   function handleClick(row, col) {
-    if (grid[row][col] != -1) return;
+    if (gameOver || grid[row][col] != -1) return;
 
-    // Deriving which player from grid
-    let moves = 0;
-    for (let r = 0; r < 9; r++)
-      if (grid[Math.floor(r / 3)][r % 3] != -1) moves++;
-    const playerOneTurn = moves % 2 == 0;
+    const playerOneTurn = availableMoves(grid) % 2;
 
-    setGrid((prevGrid) => {
-      let newGrid = JSON.parse(JSON.stringify(prevGrid));
-      newGrid[row][col] = playerOneTurn ? 1 : 0;
-      return newGrid;
-    });
+    let newGrid = JSON.parse(JSON.stringify(grid));
+    newGrid[row][col] = playerOneTurn ? 1 : 0;
 
-    onGameOver();
+    setGrid(newGrid);
+
+    const score = winCheck(newGrid);
+
+    if (score != 2) {
+      gameOver = true;
+      onGameOver(score);
+    }
   }
 
   return (
@@ -34,8 +39,7 @@ export default function GameGrid({ lonelyness, hardness, onGameOver }) {
             className="tile"
             onClick={() => handleClick(row, col)}
           >
-            {x == 1 && "X"}
-            {x == 0 && "O"}
+            {x == 1 ? "X" : x == 0 ? "O" : ""}
           </div>
         ))
       )}
