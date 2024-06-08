@@ -51,7 +51,10 @@ export default function App() {
       <h1 className="heading">TIC TAC TOE</h1>
 
       {/* Handle Scoring System */}
-      <ScoreCard />
+      <div className="cards">
+        <ScoreCard name={"Player One"} mark={"X"} score={0} />
+        <ScoreCard name={"Player Two"} mark={"O"} score={0} />
+      </div>
 
       {isPlayersVisible && <PlayerMode onModeSelect={handleModeSelect} />}
 

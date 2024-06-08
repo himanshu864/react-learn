@@ -44,16 +44,64 @@ body {
 }
 
 .card {
-    width: 120px;
-    height: 120px;
+    width: 220px;
+    height: 100px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #3c3c3c;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 10px;
     font-size: 1.5rem;
     color: #e0e0e0;
+}
+
+.player-editer {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player {
+    color: #e0e0e0;
+    font-size: 19px;
+    width: 145px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.player-name {
+    overflow: hidden;
+    padding: 5px;
+    padding-top: 3.5px
+}
+
+.p-input {
+    padding: 5px;
+    background-color: #2b2b2b;
+}
+
+.edit {
+    cursor: pointer;
+    color: blueviolet;
+    font-size: 15px;
+}
+
+.edit:hover {
+    color: #bb86fc;
+}
+
+.edit:active {
+    color: #6a0dad
+}
+
+.score-container {
+    display: flex;
+    gap: 15px;
 }
 
 .control-mode {
