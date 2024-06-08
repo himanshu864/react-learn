@@ -16,11 +16,15 @@ export const combinations = [
 ];
 
 export function availableMoves(grid) {
-    return grid.flat().filter(cell => cell == -1).length;
+    let moves = [];
+    for (let i = 0; i < 9; i++)
+        if (grid[Math.floor(i / 3)][i % 3] == -1)
+            moves.push(i);
+    return moves;
 }
 
 export function winCheck(grid) {
-    if (availableMoves(grid) == 0) return -1; // draw
+    if (availableMoves(grid).length == 0) return -1; // draw
     for (const line of combinations) {
         if (line.every((i) => grid[Math.floor(i / 3)][i % 3] === 1)) return 1; // Player wins
         if (line.every((i) => grid[Math.floor(i / 3)][i % 3] === 0)) return 0; // Computer wins

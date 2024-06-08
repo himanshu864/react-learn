@@ -62,7 +62,7 @@ export default function App() {
 
       {GameScore != "" && <div className="score">{GameScore}</div>}
 
-      {/* Logic based on lonely and hard Blinking */}
+      {/* Style and Blinking */}
       {isGameOn && (
         <GameGrid
           lonely={areYouSingle}
