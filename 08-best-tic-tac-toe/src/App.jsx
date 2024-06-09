@@ -15,6 +15,7 @@ export default function App() {
   const [isGameOn, setGameOn] = useState(false);
   const [GameScore, setGameScore] = useState("");
   const [resetTrigger, setResetTrigger] = useState(0);
+  const [playerScore, setPlayerScore] = useState([0, 0]);
 
   function handleModeSelect(player) {
     setPlayerVisibility(false);
@@ -43,6 +44,13 @@ export default function App() {
     else if (score == 0) setGameScore("You Lost!");
     else setGameScore("It's a Draw!");
 
+    if (score != 2) {
+      setPlayerScore((prevScore) => {
+        const newScore = [...prevScore];
+        newScore[score]++;
+        return newScore;
+      });
+    }
     setGameOver(true);
   }
 
@@ -50,10 +58,9 @@ export default function App() {
     <>
       <h1 className="heading">TIC TAC TOE</h1>
 
-      {/* Handle Scoring System */}
       <div className="cards">
-        <ScoreCard name={"Player One"} mark={"X"} score={0} />
-        <ScoreCard name={"Player Two"} mark={"O"} score={0} />
+        <ScoreCard name={"Player One"} mark={"X"} score={playerScore[1]} />
+        <ScoreCard name={"Player Two"} mark={"O"} score={playerScore[0]} />
       </div>
 
       {isPlayersVisible && <PlayerMode onModeSelect={handleModeSelect} />}
