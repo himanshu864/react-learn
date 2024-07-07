@@ -6,6 +6,8 @@ import impossibleAI from "../utils/impossibleAI.js";
 
 let gameOver = false;
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default function GameGrid({ lonely, difficulty, trigger, onGameOver }) {
   const [grid, setGrid] = useState(initialGrid);
 
@@ -44,7 +46,7 @@ export default function GameGrid({ lonely, difficulty, trigger, onGameOver }) {
   }
 
   // Main function
-  function handleClick(row, col) {
+  async function handleClick(row, col) {
     if (gameOver || grid[row][col] != -1) return;
 
     // Player Moves
@@ -53,6 +55,8 @@ export default function GameGrid({ lonely, difficulty, trigger, onGameOver }) {
     // Computer Moves
     if (lonely && !gameOver) {
       let x = moveAI(newGrid);
+
+      // await delay(500);
       updateGrid(newGrid, Math.floor(x / 3), x % 3);
     }
   }

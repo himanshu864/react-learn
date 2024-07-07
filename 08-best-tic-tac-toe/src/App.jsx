@@ -56,7 +56,9 @@ export default function App() {
 
   return (
     <>
-      <h1 className="heading">TIC TAC TOE</h1>
+      <h1 className="heading" onClick={() => window.location.reload()}>
+        TIC TAC TOE
+      </h1>
 
       <div className="cards">
         <ScoreCard name={"Player One"} mark={"X"} score={playerScore[1]} />
