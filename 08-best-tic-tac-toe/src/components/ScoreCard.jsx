@@ -1,11 +1,14 @@
 import { useState } from "react";
 
-export default function ScoreCard({ name, mark, score }) {
+export default function ScoreCard({ name, mark, score, onEdit }) {
   const [isEdit, setEdit] = useState(false);
   const [playerName, setPlayerName] = useState(name);
 
   function handleEdit() {
     setEdit((edit) => !edit);
+
+    if (mark == "X") onEdit(1, playerName);
+    else onEdit(0, playerName);
   }
 
   function handleInput(event) {

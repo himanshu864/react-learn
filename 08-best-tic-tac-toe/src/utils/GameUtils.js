@@ -23,10 +23,10 @@ export function availableMoves(grid) {
 }
 
 export function winCheck(grid) {
-  if (availableMoves(grid).length == 0) return -1; // draw
   for (const line of combinations) {
     if (line.every((i) => grid[Math.floor(i / 3)][i % 3] === 1)) return 1; // Player wins
     if (line.every((i) => grid[Math.floor(i / 3)][i % 3] === 0)) return 0; // Computer wins
   }
+  if (availableMoves(grid).length == 0) return -1; // draw
   return 2; // nothing
 }

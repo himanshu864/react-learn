@@ -5,10 +5,9 @@ import DifficultMode from "./components/DifficultMode.jsx";
 import StartButton from "./components/StartButton.jsx";
 import GameGrid from "./components/GameGrid.jsx";
 
-let areYouSingle = true;
-
 export default function App() {
   const [isPlayersVisible, setPlayerVisibility] = useState(true);
+  const [areYouSingle, setLoneliness] = useState(true);
   const [isDiffVisible, setDiffVisibility] = useState(false);
   const [isGameOver, setGameOver] = useState(false);
   const [difficulty, setDifficulty] = useState(2);
@@ -16,12 +15,13 @@ export default function App() {
   const [GameScore, setGameScore] = useState("");
   const [resetTrigger, setResetTrigger] = useState(0);
   const [playerScore, setPlayerScore] = useState([0, 0]);
+  const [playerNames, setPlayerNames] = useState(["Player Two", "Player One"]);
 
   function handleModeSelect(player) {
     setPlayerVisibility(false);
-    areYouSingle = player == 1;
+    setLoneliness(player == 1);
 
-    if (areYouSingle) setDiffVisibility(true);
+    if (player == 1) setDiffVisibility(true);
     else setGameOver(true);
   }
 
@@ -40,9 +40,11 @@ export default function App() {
   }
 
   function handleGameOver(score) {
-    if (score == 1) setGameScore("You Won!");
-    else if (score == 0) setGameScore("You Lost!");
-    else setGameScore("It's a Draw!");
+    if (score == 1) setGameScore(`You Won, ${playerNames[1]}!`);
+    else if (score == 0) {
+      if (areYouSingle) setGameScore(`You Lost, ${playerNames[1]}`);
+      else setGameScore(`You Won, ${playerNames[0]}!`);
+    } else setGameScore("It's a Draw!");
 
     if (score != 2) {
       setPlayerScore((prevScore) => {
@@ -54,6 +56,14 @@ export default function App() {
     setGameOver(true);
   }
 
+  function handlePlayerNameEdit(playerIdx, playerName) {
+    setPlayerNames((prevNames) => {
+      const newNames = [...prevNames];
+      newNames[playerIdx] = playerName;
+      return newNames;
+    });
+  }
+
   return (
     <>
       <h1 className="heading" onClick={() => window.location.reload()}>
@@ -61,8 +71,18 @@ export default function App() {
       </h1>
 
       <div className="cards">
-        <ScoreCard name={"Player One"} mark={"X"} score={playerScore[1]} />
-        <ScoreCard name={"Player Two"} mark={"O"} score={playerScore[0]} />
+        <ScoreCard
+          name={playerNames[1]}
+          mark={"X"}
+          score={playerScore[1]}
+          onEdit={handlePlayerNameEdit}
+        />
+        <ScoreCard
+          name={playerNames[0]}
+          mark={"O"}
+          score={playerScore[0]}
+          onEdit={handlePlayerNameEdit}
+        />
       </div>
 
       {isPlayersVisible && <PlayerMode onModeSelect={handleModeSelect} />}
