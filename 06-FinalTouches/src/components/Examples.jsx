@@ -13,10 +13,22 @@ export default function Examples() {
     tabContent = <TabContent {...EXAMPLES[selectedTopic]} />;
   }
 
+  const examples = ["components", "jsx", "props", "state"];
+
   return (
     <Section title="Examples" id="examples">
       <menu>
-        <TabButton
+        {examples.map((topic) => {
+          return (
+            <TabButton
+              isActive={selectedTopic === topic}
+              onClick={() => setSelectedTopic(topic)}
+            >
+              {topic.charAt(0).toUpperCase() + topic.slice(1)}
+            </TabButton>
+          );
+        })}
+        {/* <TabButton
           isActive={selectedTopic === "components"}
           onClick={() => setSelectedTopic("components")}
         >
@@ -39,7 +51,7 @@ export default function Examples() {
           onClick={() => setSelectedTopic("state")}
         >
           State
-        </TabButton>
+        </TabButton> */}
       </menu>
       {tabContent}
     </Section>
