@@ -6,39 +6,49 @@ export default function TimerChallenge({ title, targetTime }) {
   const timer = useRef();
   const dialog = useRef();
 
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(targetTime * 1000);
+  const isTimerActive = timeLeft > 0 && timeLeft < targetTime * 1000;
+
+  if (timeLeft <= 0) {
+    clearInterval(timer.current);
+    dialog.current.open();
+  }
 
   const handleStart = () => {
-    setTimerStarted(true);
-
-    timer.current = setTimeout(() => {
-      setTimerExpired(true);
-      setTimerStarted(false);
-      dialog.current.showModal();
-    }, 1000 * targetTime);
+    timer.current = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 10);
+    }, 10);
   };
 
   const handleStop = () => {
-    clearTimeout(timer.current);
-    setTimerStarted(false);
+    clearInterval(timer.current);
+    dialog.current.open();
+  };
+
+  const handleReset = () => {
+    setTimeLeft(targetTime * 1000);
   };
 
   return (
     <>
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal
+        ref={dialog}
+        targetTime={targetTime}
+        timeLeft={timeLeft}
+        onReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
         <p>
-          <button onClick={timerStarted ? handleStop : handleStart}>
-            {timerStarted ? "Stop Challenge" : "Start Challenge"}
+          <button onClick={isTimerActive ? handleStop : handleStart}>
+            {isTimerActive ? "Stop Challenge" : "Start Challenge"}
           </button>
         </p>
-        <p className={timerStarted ? "active" : undefined}>
-          {timerStarted ? "Timer is running..." : "Timer stopped"}
+        <p className={isTimerActive ? "active" : undefined}>
+          {isTimerActive ? "Timer is running..." : "Timer stopped"}
         </p>
       </section>
     </>
