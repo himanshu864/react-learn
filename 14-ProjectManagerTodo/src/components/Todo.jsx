@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
-import intialTodos from "../utils/todos";
+import { useEffect, useRef, useState } from "react";
 
-export default function Todo() {
-  const [tasks, setTasks] = useState(intialTodos);
+export default function Todo({ data, active }) {
+  const [tasks, setTasks] = useState(data[active].todos);
   const inputRef = useRef();
+  useEffect(() => setTasks(data[active].todos), [active]);
 
   const resetInput = () => (inputRef.current.value = "");
 
