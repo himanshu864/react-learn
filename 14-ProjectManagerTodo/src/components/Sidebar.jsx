@@ -9,13 +9,13 @@ export default function Sidebar({ data, active, onSelect }) {
         Add Project
       </button>
       <ul>
-        {data.map((d, i) => {
+        {data.map((project, index) => {
           let classes = "mb-2 p-1 pl-2 cursor-pointer hover:text-amber-300 ";
-          if (active == i) classes += "bg-amber-700 rounded";
+          if (active === index) classes += "bg-amber-700 rounded";
 
           return (
-            <li className={classes} key={i} onClick={() => onSelect(i)}>
-              {d.name}
+            <li className={classes} key={index} onClick={() => onSelect(index)}>
+              {project.name}
             </li>
           );
         })}
