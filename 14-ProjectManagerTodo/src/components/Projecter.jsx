@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import InputBar from "./InputBar";
+import { SubmitButton, DeleteButton } from "./Buttons";
 
 export default function Projecter({ data, onDataUpdate }) {
   const nameRef = useRef();
@@ -35,14 +36,9 @@ export default function Projecter({ data, onDataUpdate }) {
 
   return (
     <div>
-      <h1 className="mb-8 text-5xl font-bold">Project Manager</h1>
-      <div className="flex justify-end py-4">
-        <button
-          className="w-16 rounded bg-amber-700 p-1 text-white hover:bg-amber-600"
-          onClick={clearInputs}
-        >
-          Cancel
-        </button>
+      <div className="my-12 flex items-end justify-between">
+        <h1 className="text-5xl font-bold uppercase">Project Manager</h1>
+        <DeleteButton onClick={clearInputs}>Cancel</DeleteButton>
       </div>
 
       <form className="flex flex-col gap-4" onSubmit={handleCreateProject}>
@@ -50,12 +46,7 @@ export default function Projecter({ data, onDataUpdate }) {
         <InputBar heading={"Title: "} type={"text"} ref={titleRef} />
         <InputBar heading={"Body: "} type={"text"} ref={bodyRef} />
         <InputBar heading={"Due Date: "} type={"date"} ref={dateRef} />
-        <button
-          className="w-16 rounded bg-amber-500 p-1 hover:bg-amber-400"
-          type="submit"
-        >
-          Create
-        </button>
+        <SubmitButton>Save</SubmitButton>
       </form>
     </div>
   );

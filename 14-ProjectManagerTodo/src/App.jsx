@@ -12,7 +12,7 @@ function App() {
   const handleDataUpdate = (newData) => setData(newData);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen gap-4 bg-gray-100">
       <Sidebar data={data} active={active} onSelect={handleActive} />
       <main className="max-w-3xl flex-1 p-8">
         {active === -1 ? (
