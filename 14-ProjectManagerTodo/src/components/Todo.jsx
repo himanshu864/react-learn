@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Todo({ data, active }) {
-  const [tasks, setTasks] = useState(data[active].todos);
+export default function Todo({ data, onDataUpdate, active }) {
+  const [tasks, setTasks] = useState([]);
   const inputRef = useRef();
   useEffect(() => setTasks(data[active].todos), [active]);
 
@@ -24,8 +24,21 @@ export default function Todo({ data, active }) {
     setTasks((prevTasks) => prevTasks.filter((_, i) => i != index));
   };
 
+  const handleDeleteProject = () => {
+    onDataUpdate(data.filter((_, i) => i != active));
+  };
+
   return (
     <div className="container">
+      <div className="flex justify-end py-4">
+        <button
+          className="w-16 rounded bg-amber-700 p-1 text-white hover:bg-amber-600"
+          onClick={handleDeleteProject}
+        >
+          Delete
+        </button>
+      </div>
+
       <form className="rounded bg-white p-4" onSubmit={handleAddTask}>
         <div className="mb-2 block font-semibold">Enter task:</div>
         <div className="flex">

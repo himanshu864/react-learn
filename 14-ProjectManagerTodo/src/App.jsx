@@ -1,7 +1,7 @@
 import { useState } from "react";
+import initialData from "./utils/data";
 import Sidebar from "./components/Sidebar";
 import Todo from "./components/Todo";
-import initialData from "./utils/data";
 import Projecter from "./components/Projecter";
 
 function App() {
@@ -12,9 +12,9 @@ function App() {
     setActive(i);
   };
 
-  const handleDataChange = (newData) => {
+  const handleDataUpdate = (newData) => {
     setData(newData);
-    setActive(data.length);
+    setActive(-1);
   };
 
   return (
@@ -23,9 +23,9 @@ function App() {
       <main className="max-w-3xl flex-1 p-8">
         <h1 className="mb-8 text-center text-5xl font-bold">Project Manager</h1>
         {active === -1 ? (
-          <Projecter data={data} onDataChange={handleDataChange} />
+          <Projecter data={data} onDataUpdate={handleDataUpdate} />
         ) : (
-          <Todo data={data} active={active} />
+          <Todo data={data} onDataUpdate={handleDataUpdate} active={active} />
         )}
       </main>
     </div>
