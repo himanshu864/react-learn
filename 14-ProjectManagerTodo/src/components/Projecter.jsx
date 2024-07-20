@@ -46,26 +46,16 @@ export default function Projecter({ data, onDataUpdate }) {
       </div>
 
       <form className="flex flex-col gap-4" onSubmit={handleCreateProject}>
-        <InputBar heading={"Project Name: "} ref={nameRef} />
-        <InputBar heading={"Title: "} ref={titleRef} />
-        <InputBar heading={"Body: "} ref={bodyRef} />
-        <div className="flex gap-4">
-          <h2 className="w-36">Due Date: </h2>
-          <input
-            type="date"
-            className="w-full rounded border border-gray-300 p-1"
-            ref={dateRef}
-            required
-          />
-        </div>
-        <div>
-          <button
-            className="w-16 rounded bg-amber-500 p-1 hover:bg-amber-400"
-            type="submit"
-          >
-            Create
-          </button>
-        </div>
+        <InputBar heading={"Project Name: "} type={"text"} ref={nameRef} />
+        <InputBar heading={"Title: "} type={"text"} ref={titleRef} />
+        <InputBar heading={"Body: "} type={"text"} ref={bodyRef} />
+        <InputBar heading={"Due Date: "} type={"date"} ref={dateRef} />
+        <button
+          className="w-16 rounded bg-amber-500 p-1 hover:bg-amber-400"
+          type="submit"
+        >
+          Create
+        </button>
       </form>
     </div>
   );

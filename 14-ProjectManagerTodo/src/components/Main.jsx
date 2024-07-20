@@ -1,13 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import Todo from "./Todo";
+import { useRef } from "react";
 
-export default function Main({ data, onDataUpdate, active }) {
-  const [tasks, setTasks] = useState([]);
+export default function Main({ data, onDataUpdate, active, handleActive }) {
   const inputRef = useRef();
-
-  useEffect(() => {
-    setTasks(data[active].todos);
-  }, [active, data]);
 
   // need to separate function to reference
   const resetInput = () => (inputRef.current.value = "");
@@ -16,15 +10,23 @@ export default function Main({ data, onDataUpdate, active }) {
     e.preventDefault(); // to prevent page from reloading
     const inputValue = inputRef.current.value;
     if (!inputValue) return;
-    setTasks((prevTasks) => [...prevTasks, { task: inputValue }]);
+    const updatedData = JSON.parse(JSON.stringify(data));
+    updatedData[active].todos.push({ task: inputValue });
+    onDataUpdate(updatedData);
     resetInput();
   };
 
-  const handleDeleteTask = (index) =>
-    setTasks((prevTasks) => prevTasks.filter((_, i) => i != index));
+  const handleDeleteTask = (index) => {
+    const newTasks = data[active].todos.filter((_, i) => i != index);
+    const updatedData = JSON.parse(JSON.stringify(data));
+    updatedData[active].todos = newTasks;
+    onDataUpdate(updatedData);
+  };
 
-  const handleDeleteProject = () =>
+  const handleDeleteProject = () => {
     onDataUpdate(data.filter((_, i) => i != active));
+    handleActive(-1);
+  };
 
   return (
     <div className="container">
@@ -56,8 +58,8 @@ export default function Main({ data, onDataUpdate, active }) {
         </div>
       </form>
       <ul className="m-8 flex list-disc flex-col gap-4">
-        {tasks.length ? (
-          tasks.map((todo, index) => (
+        {data[active].todos.length ? (
+          data[active].todos.map((todo, index) => (
             <div className="flex justify-between" key={index}>
               <li>{todo.task}</li>
               <button

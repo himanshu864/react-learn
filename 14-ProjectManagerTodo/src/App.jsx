@@ -9,11 +9,7 @@ function App() {
   const [active, setActive] = useState(-1); // active is basically the index of data which is currently active
 
   const handleActive = (index) => setActive(index);
-
-  const handleDataUpdate = (newData) => {
-    setData(newData);
-    setActive(-1);
-  };
+  const handleDataUpdate = (newData) => setData(newData);
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -22,7 +18,12 @@ function App() {
         {active === -1 ? (
           <Projecter data={data} onDataUpdate={handleDataUpdate} />
         ) : (
-          <Main data={data} onDataUpdate={handleDataUpdate} active={active} />
+          <Main
+            data={data}
+            onDataUpdate={handleDataUpdate}
+            active={active}
+            handleActive={handleActive}
+          />
         )}
       </main>
     </div>
