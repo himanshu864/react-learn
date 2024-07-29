@@ -1,2 +1,3 @@
-# react-learn
-learning react
+# Learning React
+
+Documenting React concepts with example Projects
