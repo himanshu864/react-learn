@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 
-export default function ProgressBar({ timeout, onSkip }) {
-  const [timeLeft, setTimeLeft] = useState(timeout);
+export default function ProgressBar({ TIMER, onSkip, answerState }) {
+  const [timeLeft, setTimeLeft] = useState(TIMER);
 
   // timer for skipping question if no select
   useEffect(() => {
-    const timer = setTimeout(() => onSkip(), timeout);
-    return () => clearTimeout(timer);
-  }, [timeout, onSkip]);
+    const timeout = setTimeout(() => {
+      if (!answerState) onSkip();
+    }, TIMER);
+    return () => clearTimeout(timeout);
+  }, [TIMER, onSkip, answerState]);
 
   // very important to clean up intervals for strictMode and for next questions
   useEffect(() => {
@@ -17,5 +19,11 @@ export default function ProgressBar({ timeout, onSkip }) {
     return () => clearInterval(interval);
   }, []);
 
-  return <progress className="question-time" value={timeLeft} max={timeout} />;
+  return (
+    <progress
+      className={answerState === "selected" ? "answered" : undefined}
+      value={timeLeft}
+      max={TIMER}
+    />
+  );
 }
