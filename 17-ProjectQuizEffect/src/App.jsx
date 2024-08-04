@@ -1,32 +1,24 @@
-import { useCallback, useState } from "react";
+import { useState, useCallback } from "react";
 
 import Header from "./components/Header";
 import Quiz from "./components/Quiz";
 import Summary from "./components/Summary";
-
-const initialAnswers = new Array(7).fill(-1);
+import QUESTIONS from "./questions";
 
 function App() {
-  const [qNumber, setQNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState(initialAnswers);
+  const [userAnswers, setUserAnswers] = useState([]);
 
-  const handleClick = useCallback(
-    (i) => {
-      setUserAnswers((prevAns) => {
-        const newAns = [...prevAns];
-        newAns[qNumber] = i;
-        return newAns;
-      });
-      setQNumber((prev) => prev + 1);
-    },
-    [qNumber]
-  );
+  const handleClick = useCallback((i) => {
+    setUserAnswers((prevAns) => [...prevAns, i]);
+  }, []);
+
+  const qn = userAnswers.length;
 
   return (
     <>
       <Header />
-      {qNumber < 7 ? (
-        <Quiz qn={qNumber} onSelect={handleClick} />
+      {qn < QUESTIONS.length ? (
+        <Quiz qn={qn} onSelect={handleClick} />
       ) : (
         <Summary userAns={userAnswers} />
       )}
