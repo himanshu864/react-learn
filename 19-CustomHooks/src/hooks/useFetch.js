@@ -6,20 +6,20 @@ export function useFetch(fetchFn, initialValue) {
   const [fetchedData, setFetchedData] = useState(initialValue);
 
   useEffect(() => {
-    async function fetchPlaces() {
+    async function fetchData() {
       setIsFetching(true);
       try {
-        const places = await fetchFn();
-        setFetchedData(places);
+        const data = await fetchFn();
+        setFetchedData(data);
       } catch (error) {
-        setError({ message: error.message || "Failed to fetch user places." });
+        setError({ message: error.message || "Failed to fetch data." });
       }
 
       setIsFetching(false);
     }
 
-    fetchPlaces();
+    fetchData();
   }, [fetchFn]);
 
-  return { isFetching, error, fetchedData };
+  return { isFetching, error, fetchedData, setFetchedData };
 }
