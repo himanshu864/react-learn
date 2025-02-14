@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Meals() {
+export default function Meals({ addFoodItem }) {
   const [availableMeals, setAvailableMeals] = useState([]);
 
   const fetchMeals = async () => {
@@ -16,16 +16,18 @@ export default function Meals() {
   return (
     <section id="meals">
       {availableMeals.map((item) => {
-        let imageSrc = "../backend/public/";
-        imageSrc += item.image;
-
         return (
           <div key={item.id} className="meal-item">
-            <img src={imageSrc} alt="item" />
+            <img src={"../backend/public/" + item.image} alt="item" />
             <h3>{item.name}</h3>
             <div className="meal-item-price">{item.price}</div>
             <div className="meal-item-description">{item.description}</div>
-            <button className="button">Add to Cart</button>
+            <button
+              className="button"
+              onClick={() => addFoodItem(item.id, item.name, item.price)}
+            >
+              Add to Cart
+            </button>
           </div>
         );
       })}

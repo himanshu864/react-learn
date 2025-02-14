@@ -19,9 +19,7 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
-
     if (!isEmailValid || !isPasswordValid) return;
-
     console.log({ email: emailValue, password: passwordValue });
   }
 
